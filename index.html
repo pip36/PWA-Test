@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sample App</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="https://unpkg.com/vue"></script>
+    </head>
+    <body>   
+        <div id="app">
+            <form @submit.prevent="" >
+                <input type='text' v-model="currentTask" > <button @click="addTask()" > Add Task </button>
+            </form>
+
+            <ul v-for="(task, index) in tasks" :key="index">
+                <li> {{task}} <button @click="removeTask(index)"> X </button> </li>
+            </ul>
+        </div>
+    </body>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue.js!',
+                currentTask: '',
+                tasks: ['task1', 'task2', 'task3']
+            },
+            methods: {
+                addTask () {
+                    this.tasks.push(this.currentTask)
+                    this.currentTask = ''
+                },
+                removeTask(index) {
+                    this.tasks.splice(index,1)
+                }
+            }
+        })
+    </script>
+</html>
