@@ -1,0 +1,22 @@
+{
+  "name": "pwa",
+  "version": "1.0.0",
+  "description": "todo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pip36/PWA-Test.git"
+  },
+  "author": "pip36",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pip36/PWA-Test/issues"
+  },
+  "homepage": "https://github.com/pip36/PWA-Test#readme",
+  "dependencies": {
+    "localforage": "^1.5.6"
+  }
+}
