@@ -1,0 +1,15 @@
+* {
+    font-family: 'Indie Flower', cursive;
+}
+
+body {
+    background: #f1f1f1;
+}
+
+input {
+    font-family: inherit;
+}
+
+button {
+    font-family: inherit;
+}

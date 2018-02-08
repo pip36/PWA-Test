@@ -2,7 +2,8 @@ var cacheName = 'todo-PWA'
 var filesToCache = [
     '/',
     'index.html',
-    'images/icon.png'
+    'images/icon.png',
+    'styles.css'
 ]
 
 self.addEventListener('install', function(e) {
