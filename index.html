@@ -2,8 +2,15 @@
 <html>
     <head>
         <title>Sample App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-        <script src="https://unpkg.com/vue"></script>
+        <link rel="manifest" href="/manifest.json">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Weather PWA">
+        <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+        <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+        <meta name="msapplication-TileColor" content="#2F3BA2">
     </head>
     <body>   
         <div id="app">
@@ -12,7 +19,7 @@
             </form>
 
             <ul v-for="(task, index) in tasks" :key="index">
-                <li> {{task}} <button @click="removeTask(index)"> X </button> </li>
+                <li> {{task.name}} <button @click="removeTask(index)"> X </button> </li>
             </ul>
         </div>
     </body>
@@ -23,15 +30,51 @@
             data: {
                 message: 'Hello Vue.js!',
                 currentTask: '',
-                tasks: ['task1', 'task2', 'task3']
+                tasks:  [
+                    { name: 'Your First Task', deadline: null }
+                ]
+            },
+            created() {
+                this.loadFromLocalStorage()
+                this.initializeServiceWorker()
             },
             methods: {
                 addTask () {
-                    this.tasks.push(this.currentTask)
+                    this.tasks.push({ name: this.currentTask, deadline: null })
+                    this.updateLocalStorage()
                     this.currentTask = ''
                 },
+
                 removeTask(index) {
                     this.tasks.splice(index,1)
+                    this.updateLocalStorage()
+                },
+
+                loadFromLocalStorage() {
+                    let tasks = localStorage.tasks
+                    if(tasks) {
+                        //load them into app
+                        //console.log(tasks[0])
+                        this.tasks = JSON.parse(tasks)
+                        console.log(this.tasks)
+                        
+                    } else {
+                        //use default
+                        this.updateLocalStorage()
+                    }
+                },
+
+                updateLocalStorage () {
+                    localStorage.tasks = JSON.stringify(this.tasks)
+                },
+
+                initializeServiceWorker () {
+                    if ('serviceWorker' in navigator) {
+                        navigator.serviceWorker.register('./serviceWorker.js')
+                            .then(function() { 
+                                console.log('Service Worker Registered');
+                            })
+                    }
                 }
             }
         })
