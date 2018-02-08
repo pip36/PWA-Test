@@ -13,6 +13,7 @@
         <meta name="msapplication-TileColor" content="#2F3BA2">
         <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
+        <script src="localforage.js"></script>
     </head>
     <body>   
         <div id="app">
@@ -53,18 +54,20 @@
                 },
 
                 loadFromLocalStorage() {
-                    let tasks = localStorage.tasks
-                    if(tasks) {
+                    localforage.getItem('tasks').then(function(tasks) { 
                         this.tasks = JSON.parse(tasks)
-                        console.log(this.tasks)
-                        
-                    } else {
+                    }).catch(function(err) {          
                         this.updateLocalStorage()
-                    }
+                    });
                 },
 
                 updateLocalStorage () {
-                    localStorage.tasks = JSON.stringify(this.tasks)
+                    let tasks = JSON.stringify(this.tasks)
+                    localforage.setItem('tasks', tasks).then(function (value) {
+                        
+                    }).catch(function(err) {        
+                        console.log(err);
+                    });
                 },
 
                 initializeServiceWorker () {
