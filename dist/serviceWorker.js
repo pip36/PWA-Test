@@ -3,7 +3,8 @@ var filesToCache = [
     '/',
     'index.html',
     'images/icon.png',
-    'styles.css'
+    'styles.css',
+    'localforage.js'
 ]
 
 self.addEventListener('install', function(e) {
